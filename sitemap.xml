@@ -5,8 +5,7 @@
     <loc>https://mingxuanliu.github.io/</loc>
     <priority>0</priority>
   </url><url>
-    <loc>https://mingxuanliu.github.io/categories/</loc>
-  </url><url>
-    <loc>https://mingxuanliu.github.io/tags/</loc>
+    <loc>https://mingxuanliu.github.io/misc/</loc>
+    <priority>0</priority>
   </url>
 </urlset>
