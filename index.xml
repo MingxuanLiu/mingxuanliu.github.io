@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mingxuan Liu</title>
+    <link>https://mingxuanliu.github.io/</link>
+    <description>Recent content on Mingxuan Liu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://mingxuanliu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://mingxuanliu.github.io/misc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mingxuanliu.github.io/misc/</guid>
+      <description>Interests My interests contain making handboks, photo, and playing switch games.
+My Handbook 
+My Photos 
+My Games 
+ To a great mind, nothing is little
+ </description>
+    </item>
+    
+  </channel>
+</rss>
