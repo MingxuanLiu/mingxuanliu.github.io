@@ -190,12 +190,12 @@
            counter starts at (total papers + 1); each item does -1,
            so the top (newest) paper shows the total count. */
         /* ---- Jianjun-style entry: [n] title .... venue (right) / full name / authors / meta ---- */
-        #content #pub-list { counter-reset: pubnum 26; }
+        #content #pub-list { counter-reset: pubnum 26; font-size: .9em; }
         #content #pub-list li {
             counter-increment: pubnum -1;
             list-style: none;
             margin-left: 0;
-            margin-bottom: 1.1em;
+            margin-bottom: .9em;
         }
         #content #pub-list .pub-head {
             display: flex;
@@ -212,7 +212,7 @@
         }
         #content #pub-list .pub-title a {
             font-weight: 700;
-            font-size: 1.05em;
+            font-size: 1em;
             color: #1a386a;
         }
         #content #pub-list .pub-title a:hover { color: #c8860d; }
@@ -236,7 +236,7 @@
             font-size: .9em;
             margin-top: .1em;
         }
-        #content #pub-list .pub-full .ccf { font-style: normal; color: #224b8d; font-weight: 700; }
+        #content #pub-list .pub-full .ccf { font-style: italic; color: #666; font-weight: 400; }
         #content #pub-list .pub-authors { margin: .12em 0; line-height: 1.5; }
         #content #pub-list .pub-meta { font-size: .88em; color: #777; line-height: 1.5; }
         /* ---- Author-role legend & corresponding-author mark ---- */
@@ -402,7 +402,7 @@
 <ul>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/ESORICS25-EmailCloaking.pdf">Email Cloaking: Deceiving Users and Spam EmailDetectors with Invisible ITML Settings</a></span><span class="pub-venue">ESORICS'25</span></div>
-<div class="pub-full">European Symposium on Research in Computer Security</div>
+<div class="pub-full">European Symposium on Research in Computer Security <span class="ccf">(CCF-B)</span></div>
 <div class="pub-authors">* Bingyang Guo, <strong><code>* Mingxuan Liu</code></strong>, Yihui Ma, Ruixuan Li, Fan Shi, Min Zhang, Baojun Liu, Chengxi Xu, Haixin Duan, Geng Hong, Min Yang, Qingfeng Pan</div>
 <div class="pub-meta">Acceptance rate: x% &nbsp;·&nbsp; Tool website: <a href="https://github.com/MingxuanLiu/Cloaked_Spam_Email-ESORICS25/tree/main">CSEMiner</a></div>
 </li>
@@ -443,7 +443,7 @@
 </li>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/DSN24-ChatScam.pdf">ChatScam: Unveiling the Rising Impact of ChatGPT on Domain Name Abuse</a></span><span class="pub-venue">DSN'24</span></div>
-<div class="pub-full">IEEE/IFIP International Conference on Dependable Systems and Networks</div>
+<div class="pub-full">IEEE/IFIP International Conference on Dependable Systems and Networks <span class="ccf">(CCF-B)</span></div>
 <div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Zhenglong Jin, Jiahai Yang, Baojun Liu, Haixin Duan, Ying Liu, Ximeng Liu, Shujun Tang</div>
 <div class="pub-meta">Acceptance rate: 20.0% &nbsp;·&nbsp; <strong>Open-Source</strong>: Sampled ChatScam domains are available on <a href="https://github.com/MingxuanLiu/ChatScam">Github</a>.</div>
 </li>
@@ -471,13 +471,13 @@
 <ul>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/ESORICS22-Emoji.pdf">Exploring the Characteristics and Security Risks of Emerging Emoji Domain Names</a></span><span class="pub-venue">ESORICS'22</span></div>
-<div class="pub-full">European Symposium on Research in Computer Security</div>
+<div class="pub-full">European Symposium on Research in Computer Security <span class="ccf">(CCF-B)</span></div>
 <div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Haixin Duan</div>
 <div class="pub-meta">Acceptance rate: 18.5%</div>
 </li>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/RAID22-Encryption.pdf">Encrypted Malware Traffic Detection via Graph-based Network Analysis</a></span><span class="pub-venue">RAID'22</span></div>
-<div class="pub-full">International Symposium on Research in Attacks, Intrusions and Defenses</div>
+<div class="pub-full">International Symposium on Research in Attacks, Intrusions and Defenses <span class="ccf">(CCF-B)</span></div>
 <div class="pub-authors">Zhuoqun Fu, <strong><code>Mingxuan Liu</code></strong>, Yue Qin, Jia Zhang, Yuan Zou, Qilei Yin, Qi Li, Haixin Duan</div>
 <div class="pub-meta">Acceptance rate: 25%</div>
 </li>
@@ -494,7 +494,7 @@
 </li>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/TDSC-Argot.pdf">Automatic Generation of Adversarial Readable Chinese Texts</a></span><span class="pub-venue">TDSC'22</span></div>
-<div class="pub-full">IEEE Transactions on Dependable and Secure Computing</div>
+<div class="pub-full">IEEE Transactions on Dependable and Secure Computing <span class="ccf">(CCF-A)</span></div>
 <div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Zihan Zhang, Chao Zhang, Yiming Zhang, Zhou Li, Qi Li, Haixin Duan and Donghong Sun</div>
 </li>
 </ul>
@@ -504,7 +504,7 @@
 <ul>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/ACSAC21-Spearphishing_sms.pdf">Detecting and Characterizing SMS Spearphising Attacks</a></span><span class="pub-venue">ACSAC'21</span></div>
-<div class="pub-full">Annual Computer Security Applications Conference</div>
+<div class="pub-full">Annual Computer Security Applications Conference <span class="ccf">(CCF-B)</span></div>
 <div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Zhou Li, Haixin Duan, Donghong Sun</div>
 <div class="pub-meta">Acceptance rate: 24.5%</div>
 </li>
@@ -515,7 +515,7 @@
 <ul>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/IJCAI20-Argot.pdf">Argot: Generating Adversarial Readable Chinese Texts</a></span><span class="pub-venue">IJCAI'20</span></div>
-<div class="pub-full">International Joint Conference on Artificial Intelligence <span class="ccf">(CCF-A)</span></div>
+<div class="pub-full">International Joint Conference on Artificial Intelligence <span class="ccf">(CCF-B)</span></div>
 <div class="pub-authors">*Zihan Zhang, <strong><code>* Mingxuan Liu</code></strong>, Chao Zhang, Yiming Zhang, Zhou Li, Qi Li, Haixin Duan and Donghong Sun</div>
 <div class="pub-meta">Acceptance rate: 12.6%</div>
 </li>
@@ -532,7 +532,7 @@
 <ul>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="publications/ACSAC19-Casino.pdf">Casino Royale: A Deep Exploration of Illegal Online Gambling</a></span><span class="pub-venue">ACSAC'19</span></div>
-<div class="pub-full">Annual Computer Security Applications Conference</div>
+<div class="pub-full">Annual Computer Security Applications Conference <span class="ccf">(CCF-B)</span></div>
 <div class="pub-authors">Hao Yang, Kun Du, Yubao Zhang, Shuang Hao, Zhou Li, <strong><code>Mingxuan Liu</code></strong>, Haining Wang, Haixin Duan, Yazhou Shi, Xiaodong Su, Guang Liu and Zhifeng Geng</div>
 <div class="pub-meta">Acceptance rate: 22.6%</div>
 </li>
