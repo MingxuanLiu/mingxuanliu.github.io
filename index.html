@@ -18,42 +18,94 @@
     <link rel="stylesheet" href="/sass/researcher.min.css">
 
     <style>
+        /* ---- cypher-z–inspired typography & palette ---- */
+        body, #content, #content *, .navbar, .navbar * {
+            font-family: "Trebuchet MS", Helvetica, Arial, sans-serif !important;
+        }
+        #content,
+        #content p, #content li, #content span,
+        #content strong, #content em, #content sup,
+        #content summary, #content h4 {
+            color: #494e52;
+        }
+        /* author-name highlight: bold yellow text, no monospace code box */
+        #content code {
+            background: none !important;
+            border: 0 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            color: #c8860d !important;
+            font-weight: 700;
+            font-size: 1em;
+        }
+
+        /* ---- Sticky top nav ---- */
+        body > .container.mt-5 {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #fff;
+            margin-top: 0 !important;
+            padding-top: .6rem;
+            padding-bottom: .4rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
+        }
+
+        /* ---- Top nav: override theme red ---- */
+        .navbar .nav-link,
+        .navbar .nav-link * { color: #333 !important; }
+        .navbar .nav-link:hover { color: #224b8d !important; text-decoration: none; }
+        .navbar .navbar-text { color: #bbb; }
+
+        /* ---- Global accent: use blue for links/emphasis (overrides theme red) ---- */
+        #content a,
+        #content a * { color: #224b8d; }
+        #content a:hover { color: #142d55; }
+
         /* ---- Section headings: light gray underline ---- */
         #content h2,
         #content h3 {
             border-bottom: 1px solid #e8e8e8;
             padding-bottom: .28rem;
             margin-bottom: .6rem;
+            scroll-margin-top: 70px;   /* keep heading clear of the sticky nav on anchor jump */
         }
+        #content [id] { scroll-margin-top: 70px; }
+        html { scroll-behavior: smooth; }
 
         /* ---- Profile header: photo right, info left ---- */
-        .profile-header {
+        #content .profile-header {
             display: flex;
             align-items: flex-start;
             gap: 1.6rem;
             margin: .3rem 0 1.2rem;
         }
-        .profile-info { flex: 1 1 auto; min-width: 0; }
-        .profile-name {
+        #content .profile-info { flex: 1 1 auto; min-width: 0; }
+        #content .profile-name {
             font-size: 2.2rem;
             font-weight: 700;
             line-height: 1.1;
-            margin: 0 0 .15rem;
+            margin: 0 0 .5rem;
         }
-        .profile-title { font-size: 1.1rem; margin: 0 0 .55rem; }
-        .profile-contact { margin: .12rem 0; color: #444; }
-        .profile-links { margin: .55rem 0 0; }
-        .profile-photo { flex: 0 0 auto; margin: 0; }
-        .profile-photo img {
-            width: 150px;
-            height: 185px;
+        #content .profile-title { font-size: 1.1rem; margin: 0 0 1rem; }
+        #content .profile-contact { margin: .55rem 0; color: #444; }
+        #content .profile-links { margin: 1rem 0 0; }
+        #content .profile-photo { flex: 0 0 auto; margin: 0; }
+        #content .profile-photo img {
+            display: block;
+            width: 165px;
+            height: 205px;
+            min-width: 165px;           /* don't let flex/theme shrink & distort it */
+            max-width: none;
+            margin: 0;                  /* override theme's #content img auto-centering */
             object-fit: cover;          /* crop instead of stretch -> no compression */
-            object-position: center 18%;
+            object-position: center 25%;
+            image-rendering: auto;      /* high-quality downscale */
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
         }
         @media (max-width: 575px) {
-            .profile-header {
+            #content .profile-header {
                 flex-direction: column-reverse;
                 align-items: center;
                 text-align: center;
@@ -61,23 +113,42 @@
         }
 
         /* ---- Recent News box ---- */
-        .news-box {
-            border-left: 3px solid #0066cc;
-            background: #f6f9fc;
+        #content .hiring {
+            background: #fff8e6;
+            border-left: 3px solid #c8860d;
             border-radius: 4px;
-            padding: .6rem 1rem .6rem 1.1rem;
-            margin: .3rem 0 1rem;
-        }
-        .news-box ul { margin: 0; padding-left: 0; list-style: none; }
-        .news-box li {
-            display: flex;
-            margin: .28rem 0;
+            padding: .6rem 1rem;
+            margin: .2rem 0 1.1rem;
             line-height: 1.5;
         }
-        .news-box .news-date {
-            flex: 0 0 7em;
+        #content .hiring strong { color: #b06f00; }
+        #content .news-box {
+            border-left: 3px solid #224b8d;
+            background: #f6f9fc;
+            border-radius: 4px;
+            padding: .7rem 1rem .7rem 1.1rem;
+            margin: .3rem 0 1rem;
+        }
+        #content .news-box ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        #content .news-box li {
+            list-style: none;
+            margin: 0 0 .45rem;
+            padding-left: 8.2em;        /* room for the date column */
+            text-indent: -8.2em;        /* pull the date back to the left edge */
+            line-height: 1.45;
+        }
+        #content .news-box li:last-child { margin-bottom: 0; }
+        #content .news-box .news-date {
+            display: inline-block;
+            width: 8em;
+            text-indent: 0;             /* cancel parent indent for the date itself */
             font-weight: 700;
-            color: #0066cc;
+            color: #224b8d;
+            vertical-align: top;
         }
 
         /* ---- Collapsible publications by year ---- */
@@ -103,14 +174,14 @@
             transition: transform .15s ease;
         }
         details.pub-year[open] > summary::before { transform: rotate(90deg); }
-        details.pub-year > summary:hover { color: #0066cc; }
+        details.pub-year > summary:hover { color: #224b8d; }
         details.pub-year .year-count {
             font-weight: 400;
             font-size: .82rem;
             color: #999;
             margin-left: .45rem;
         }
-        details.pub-year > ul {
+        #content details.pub-year > ul {
             margin-top: .2rem;
             list-style: none;
             padding-left: .2rem;
@@ -118,55 +189,113 @@
         /* Continuous descending numbering across all year groups.
            counter starts at (total papers + 1); each item does -1,
            so the top (newest) paper shows the total count. */
-        #pub-list { counter-reset: pubnum 26; }
-        #pub-list li { counter-increment: pubnum -1; }
-        #pub-list li > p:first-of-type::before {
+        /* ---- Jianjun-style entry: [n] title .... venue (right) / full name / authors / meta ---- */
+        #content #pub-list { counter-reset: pubnum 26; }
+        #content #pub-list li {
+            counter-increment: pubnum -1;
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 1.1em;
+        }
+        #content #pub-list .pub-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            line-height: 1.45;
+        }
+        #content #pub-list .pub-title { flex: 1 1 auto; min-width: 0; font-weight: 700; }
+        #content #pub-list .pub-title::before {
             content: "[" counter(pubnum) "] ";
-            color: #0066cc;
+            color: #224b8d;
             font-weight: 700;
-            margin-right: .15rem;
+        }
+        #content #pub-list .pub-title a {
+            font-weight: 700;
+            font-size: 1.05em;
+            color: #1a386a;
+        }
+        #content #pub-list .pub-title a:hover { color: #c8860d; }
+        #content #pub-list .pub-venue {
+            flex: 0 0 auto;
+            text-align: right;
+            font-weight: 700;
+            color: #224b8d;
+            white-space: nowrap;
+        }
+        #content #pub-list .pub-award {
+            display: block;
+            color: #b06f00;
+            font-size: .82em;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        #content #pub-list .pub-full {
+            font-style: italic;
+            color: #666;
+            font-size: .9em;
+            margin-top: .1em;
+        }
+        #content #pub-list .pub-full .ccf { font-style: normal; color: #224b8d; font-weight: 700; }
+        #content #pub-list .pub-authors { margin: .12em 0; line-height: 1.5; }
+        #content #pub-list .pub-meta { font-size: .88em; color: #777; line-height: 1.5; }
+        /* ---- Author-role legend & corresponding-author mark ---- */
+        #content .pub-legend {
+            font-size: .85rem;
+            color: #777;
+            margin: .15rem 0 .9rem;
+        }
+        #content .pub-legend .sym { color: #224b8d; font-weight: 700; }
+        #content #pub-list sup.corr {
+            color: #224b8d;
+            font-size: .8em;
+            margin-left: 1px;
         }
 
         /* ---- Awards: emoji bullets, nicer spacing ---- */
-        ul.awards-list {
+        #content ul.awards-list {
             list-style: none;
             padding-left: 0;
             margin-top: .4rem;
         }
-        ul.awards-list li {
+        #content ul.awards-list li {
             margin: .4rem 0;
             padding: .15rem 0 .15rem .2rem;
             line-height: 1.5;
+            list-style: none;
+            margin-left: 0;
         }
-        ul.awards-list li .award-emoji {
+        #content ul.awards-list li .award-emoji {
             display: inline-block;
             width: 1.5em;
             margin-right: .35rem;
             text-align: center;
         }
-        ul.awards-list li .award-year {
+        #content ul.awards-list li .award-year {
             color: #999;
             font-size: .85em;
             margin-left: .35rem;
         }
 
         /* ---- Services: one venue per line ---- */
-        ul.service-list {
+        #content ul.service-list {
             list-style: none;
             padding-left: 0;
             margin-top: .4rem;
         }
-        ul.service-list li {
+        #content ul.service-list li {
             margin: .32rem 0;
             line-height: 1.5;
+            list-style: none;
+            margin-left: 0;
         }
-        ul.service-list li::before {
+        #content ul.service-list li::before {
             content: "\25B8";          /* ▸ */
-            color: #0066cc;
+            color: #224b8d;
             font-size: .82em;
             margin-right: .55em;
         }
-        ul.service-list .svc-year {
+        #content ul.service-list .svc-year {
             color: #999;
             font-size: .85em;
             margin-left: .35rem;
@@ -208,12 +337,13 @@
             <p class="profile-contact">✉ liumx [AT] mail [DOT] zgclab.edu.cn</p>
             <p class="profile-links"><a href="https://scholar.google.com/citations?user=ji6fds4AAAAJ&hl=en">Google Scholar</a> · <a href="https://dblp.org/pid/253/7461-6.html">DBLP</a> · <a href="https://github.com/MingxuanLiu">Github</a> · <a href="http://netsec.ccert.edu.cn/people/liumx18">NISL</a></p>
         </div>
-        <figure class="profile-photo"><img src="/lmx-2.jpg" alt="Mingxuan Liu"></figure>
+        <figure class="profile-photo"><img src="/lmx_3.jpg" alt="Mingxuan Liu"></figure>
     </header>
     <h2 id="about-me">Me and My Research</h2>
-<p>I am an Assistant Researcher at Zhongguancun Laboratory. I received my Ph.D. degree from the Institute for Network Sciences and Cyberspace at Tsinghua University in 2023, and my Bachelor's degree in Communication Engineering from Beijing University of Posts and Telecommunications (BUPT) in 2018.</p>
+<p>I am an Assistant Researcher at Zhongguancun Laboratory, working with <a href="https://netsec.ccert.edu.cn/people/duanhx/">Haixin Duan</a> and <a href="https://www.liubaojun.org/index.html">Baojun Liu</a>. I received my Ph.D. degree from the Institute for Network Sciences and Cyberspace at Tsinghua University in 2023, and my Bachelor's degree in Communication Engineering from Beijing University of Posts and Telecommunications (BUPT) in 2018.</p>
 <p>My research focuses on discovering and understanding critical security issues in real-world Internet infrastructure through data-driven security analysis, as well as designing practical defense and governance solutions. My research interests include network security, AI security, data-driven security analysis, cybercrime detection and mitigation, and LLM-related security.</p>
 <p>My work has been published in top-tier international conferences and journals, including ACM CCS, NDSS, USENIX Security, IEEE S&amp;P, IEEE TDSC, ACSAC, RAID, and ESORICS. I have published more than 25 papers, including over 10 papers in the four major security conferences. My research has received the NDSS 2026 Distinguished Paper Award and the EthiCS 2022 Best Student Paper Award, and has contributed to the development of an IETF Internet-Draft. It has also uncovered multiple high-severity security issues in real-world Internet systems, resulting in more than 10 vulnerability identifiers from CNVD, CNNVD, and CVE. Several of my findings have been acknowledged, rewarded, or adopted by leading companies such as Baidu, Alibaba, Tencent, Huawei, and Qi An Xin.</p>
+<p class="hiring">📢 <strong>Hiring:</strong> Our group is continuously looking for highly motivated PhD/Master/undergraduate students and research interns. Please feel free to reach out via my email.</p>
 <h2 id="news">Recent News</h2>
 <div class="news-box">
 <ul>
@@ -226,46 +356,44 @@
 </div>
 <h2 id="publications">Publications</h2>
 <p><a href="https://scholar.google.com/citations?user=ji6fds4AAAAJ&hl=en">Google Scholar</a> | <a href="https://dblp.org/pid/253/7461-6.html">DBLP</a></p>
+<p class="pub-legend"><span class="sym">*</span>&nbsp;Co-first authors with equal contribution. &nbsp;&nbsp; <span class="sym">#</span>&nbsp;Corresponding author.</p>
 <div id="pub-list">
 <details class="pub-year" open>
 <summary>2026 <span class="year-count">6 papers</span></summary>
 <ul>
 <li>
-<p><a href="publications/USENIX26-QRcode-2.pdf">Shielding QR Codes: Unveiling the Real-World Illicit Promotion Behind Adversarial QR Codes</a>, <strong>[USENIX Security'26]</strong><br>
-Lijie Wu, Xiaoping Zhang, <strong><code>Mingxuan Liu (Corresponding Author)</code></strong>, Yue Qin, Baojun Liu, Geng Hong, Zhenrui Zhang, Chenghui Wu, Hui Jiang<br>
-(Acceptance rate: x%)<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/USENIX26-QRcode-2.pdf">Shielding QR Codes: Unveiling the Real-World Illicit Promotion Behind Adversarial QR Codes</a></span><span class="pub-venue">USENIX Security'26</span></div>
+<div class="pub-full">USENIX Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">Lijie Wu, Xiaoping Zhang, <strong><code># Mingxuan Liu</code></strong>, Yue Qin, Baojun Liu, Geng Hong, Zhenrui Zhang, Chenghui Wu, Hui Jiang</div>
+<div class="pub-meta">Acceptance rate: x%</div>
 </li>
 <li>
-<p><a href="publications/SP26-Jargon.pdf">Breaking Free from Ivory Tower: Evaluating and Enhancing Real-world Chinese Underground Adversarial Jargon Detection</a>, <strong>[S&P'26]</strong><br>
-* Zhifan Jiang, <strong><code>* Mingxuan Liu</code></strong>, Yue Qin, Baojun Liu<br>
-(* are co-first authors.)<br>
-(Acceptance rate: 13.0%)<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/SP26-Jargon.pdf">Breaking Free from Ivory Tower: Evaluating and Enhancing Real-world Chinese Underground Adversarial Jargon Detection</a></span><span class="pub-venue">S&P'26</span></div>
+<div class="pub-full">IEEE Symposium on Security and Privacy <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">* Zhifan Jiang, <strong><code>* Mingxuan Liu</code></strong>, Yue Qin, Baojun Liu</div>
+<div class="pub-meta">Acceptance rate: 13.0%</div>
 </li>
 <li>
-<p><a href="publications/WWW26-Internet_Shutdown.pdf">Characterizing Iran's Phased National Internet Shutdown in 2025: A Progressive and Distributed Action</a>, <strong>[WWW'26]</strong><br>
-Shibo Cui, <strong><code>Mingxuan Liu (Corresponding Author)</code></strong>, Baojun Liu, Haixin Duan, Ruixuan Li, Chaoyi Lu, Jin Zhang, Zhicheng Wang and Jinghua Bai<br>
-(Acceptance rate: x%)<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/WWW26-Internet_Shutdown.pdf">Characterizing Iran's Phased National Internet Shutdown in 2025: A Progressive and Distributed Action</a></span><span class="pub-venue">WWW'26</span></div>
+<div class="pub-full">The ACM Web Conference <span class="ccf">(CCF-A)</span></div>
+<div class="pub-authors">Shibo Cui, <strong><code># Mingxuan Liu</code></strong>, Baojun Liu, Haixin Duan, Ruixuan Li, Chaoyi Lu, Jin Zhang, Zhicheng Wang and Jinghua Bai</div>
+<div class="pub-meta">Acceptance rate: x%</div>
 </li>
 <li>
-<p><a href="publications/WWW26-LLMSEO.pdf">Unveiling the Resilience of LLM-Enhanced Search Engines Against Black-Hat SEO Manipulation</a>, <strong>[WWW'26]</strong><br>
-Pei Chen, Geng Hong, Xinyi Wu, Mengying Wu, Zixuan Zhu, <strong><code>Mingxuan Liu</code></strong>, Baojun Liu, Mi Zhang and Min Yang<br>
-(Acceptance rate: x%)<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/WWW26-LLMSEO.pdf">Unveiling the Resilience of LLM-Enhanced Search Engines Against Black-Hat SEO Manipulation</a></span><span class="pub-venue">WWW'26</span></div>
+<div class="pub-full">The ACM Web Conference <span class="ccf">(CCF-A)</span></div>
+<div class="pub-authors">Pei Chen, Geng Hong, Xinyi Wu, Mengying Wu, Zixuan Zhu, <strong><code>Mingxuan Liu</code></strong>, Baojun Liu, Mi Zhang and Min Yang</div>
+<div class="pub-meta">Acceptance rate: x%</div>
 </li>
 <li>
-<p><a href="publications/NDSS26-Email.pdf">One Email, Many Faces: A Deep Dive into Identity Confusion in Email Aliases</a>, <strong>[NDSS'26]</strong><br>
-Mengying Wu, Geng Hong, Jiatao Chen, Baojun Liu, <strong><code>Mingxuan Liu</code></strong>, Min Yang<br>
-<strong> 🏆 Distinguished Paper! </strong><br>
-(Acceptance rate: x%)<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/NDSS26-Email.pdf">One Email, Many Faces: A Deep Dive into Identity Confusion in Email Aliases</a></span><span class="pub-venue">NDSS'26<span class="pub-award">🏆 Distinguished Paper</span></span></div>
+<div class="pub-full">Network and Distributed System Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">Mengying Wu, Geng Hong, Jiatao Chen, Baojun Liu, <strong><code>Mingxuan Liu</code></strong>, Min Yang</div>
+<div class="pub-meta">Acceptance rate: x%</div>
 </li>
 <li>
-<p><a href="https://ieeexplore.ieee.org/document/11479927">Earning in Secrecy: Understanding the Revenue-Per-Traffic Services in PCDN Network</a>, <strong>[ENSE'26]</strong><br>
-Kehong Liu, Yunyi Zhang, Liu, <strong><code>Mingxuan Liu</code></strong>, Bin Wang, Xiangyu Tian, Yu Zhang<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="https://ieeexplore.ieee.org/document/11479927">Earning in Secrecy: Understanding the Revenue-Per-Traffic Services in PCDN Network</a></span><span class="pub-venue">ENSE'26</span></div>
+<div class="pub-authors">Kehong Liu, Yunyi Zhang, Liu, <strong><code>Mingxuan Liu</code></strong>, Bin Wang, Xiangyu Tian, Yu Zhang</div>
 </li>
 </ul>
 </details>
@@ -273,32 +401,28 @@ Kehong Liu, Yunyi Zhang, Liu, <strong><code>Mingxuan Liu</code></strong>, Bin Wa
 <summary>2025 <span class="year-count">4 papers</span></summary>
 <ul>
 <li>
-<p><a href="publications/ESORICS25-EmailCloaking.pdf">Email Cloaking: Deceiving Users and Spam EmailDetectors with Invisible ITML Settings</a>, <strong>[ESORICS'25]</strong><br>
-* Bingyang Guo, <strong><code>* Mingxuan Liu</code></strong>, Yihui Ma, Ruixuan Li, Fan Shi, Min Zhang, Baojun Liu, Chengxi Xu, Haixin Duan, Geng Hong, Min Yang, Qingfeng Pan<br>
-(* are co-first authors.)<br>
-(Acceptance rate: x%)<br>
-Tool website: <a href="https://github.com/MingxuanLiu/Cloaked_Spam_Email-ESORICS25/tree/main">CSEMiner</a><br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/ESORICS25-EmailCloaking.pdf">Email Cloaking: Deceiving Users and Spam EmailDetectors with Invisible ITML Settings</a></span><span class="pub-venue">ESORICS'25</span></div>
+<div class="pub-full">European Symposium on Research in Computer Security</div>
+<div class="pub-authors">* Bingyang Guo, <strong><code>* Mingxuan Liu</code></strong>, Yihui Ma, Ruixuan Li, Fan Shi, Min Zhang, Baojun Liu, Chengxi Xu, Haixin Duan, Geng Hong, Min Yang, Qingfeng Pan</div>
+<div class="pub-meta">Acceptance rate: x% &nbsp;·&nbsp; Tool website: <a href="https://github.com/MingxuanLiu/Cloaked_Spam_Email-ESORICS25/tree/main">CSEMiner</a></div>
 </li>
 <li>
-<p><a href="publications/USENIX25-Version.pdf">Beyond Exploit Scanning: A Functional Change-Driven Approach to Remote Software Version Identification</a>, <strong>[USENIX Security'25]</strong><br>
-Jinsong Chen, Mengying Wu, Geng Hong, Baichao An, <strong><code>Mingxuan Liu</code></strong>, Lei Zhang, Baojun Liu, Haixin Duan, Min Yang<br>
-(Acceptance rate: 19%)<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/USENIX25-Version.pdf">Beyond Exploit Scanning: A Functional Change-Driven Approach to Remote Software Version Identification</a></span><span class="pub-venue">USENIX Security'25</span></div>
+<div class="pub-full">USENIX Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">Jinsong Chen, Mengying Wu, Geng Hong, Baichao An, <strong><code>Mingxuan Liu</code></strong>, Lei Zhang, Baojun Liu, Haixin Duan, Min Yang</div>
+<div class="pub-meta">Acceptance rate: 19%</div>
 </li>
 <li>
-<p><a href="publications/USENIX25-NOKEScam.pdf">NOKEScam: Understanding and Rectifying Non-Sense Keywords Spear Scam in Search Engines</a>, <strong>[USENIX Security'25]</strong><br>
-<strong><code>Mingxuan Liu</code></strong>, Yunyi Zhang, Lijie Wu, Baojun Liu, Geng Hong, Yiming Zhang, Hui Jiang, Jia Zhang, Haixin Duan, Min Zhang, Wei Guan, Fan Shi, Min Yang<br>
-(Acceptance rate: 19%)<br>
-Tool website: <a href="http://nokescam.com/">NOKEScam Website</a><br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/USENIX25-NOKEScam.pdf">NOKEScam: Understanding and Rectifying Non-Sense Keywords Spear Scam in Search Engines</a></span><span class="pub-venue">USENIX Security'25</span></div>
+<div class="pub-full">USENIX Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Yunyi Zhang, Lijie Wu, Baojun Liu, Geng Hong, Yiming Zhang, Hui Jiang, Jia Zhang, Haixin Duan, Min Zhang, Wei Guan, Fan Shi, Min Yang</div>
+<div class="pub-meta">Acceptance rate: 19% &nbsp;·&nbsp; Tool website: <a href="http://nokescam.com/">NOKEScam Website</a></div>
 </li>
 <li>
-<p><a href="publications/IMC25-Serverless.pdf">Dive into the cloud: Unveiling the (Ab)usage of Serverless Cloud Function in the Wild</a>, <strong>[IMC'25]</strong><br>
-*Yijing Liu, <strong><code>*Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Jia Zhang, Geng Hong, Haixin Duan, Min Yang<br>
-(* are co-first authors.)<br>
-(Acceptance rate: x%)<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/IMC25-Serverless.pdf">Dive into the cloud: Unveiling the (Ab)usage of Serverless Cloud Function in the Wild</a></span><span class="pub-venue">IMC'25</span></div>
+<div class="pub-full">ACM Internet Measurement Conference <span class="ccf">(CCF-B)</span></div>
+<div class="pub-authors">*Yijing Liu, <strong><code>*Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Jia Zhang, Geng Hong, Haixin Duan, Min Yang</div>
+<div class="pub-meta">Acceptance rate: x%</div>
 </li>
 </ul>
 </details>
@@ -306,32 +430,28 @@ Tool website: <a href="http://nokescam.com/">NOKEScam Website</a><br>
 <summary>2024 <span class="year-count">4 papers</span></summary>
 <ul>
 <li>
-<p><a href="publications/USENIX24-ISAP.pdf">Into the Dark: Unveiling Internal Site Search Abused for BlackHat SEO</a>, <strong>[USENIX Security'24]</strong><br>
-Yunyi Zhang, <strong><code>Mingxuan Liu</code></strong>, Baojun Liu, Yiming Zhang, Haixin Duan, Min Zhang, Hui Jiang, Yanzhe Li, Fan Shi<br>
-(Acceptance rate: 18.3%))<br>
-Tool website: <a href="http://isap-check.com/">ISAP Checker</a><br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/USENIX24-ISAP.pdf">Into the Dark: Unveiling Internal Site Search Abused for BlackHat SEO</a></span><span class="pub-venue">USENIX Security'24</span></div>
+<div class="pub-full">USENIX Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">Yunyi Zhang, <strong><code>Mingxuan Liu</code></strong>, Baojun Liu, Yiming Zhang, Haixin Duan, Min Zhang, Hui Jiang, Yanzhe Li, Fan Shi</div>
+<div class="pub-meta">Acceptance rate: 18.3% &nbsp;·&nbsp; Tool website: <a href="http://isap-check.com/">ISAP Checker</a></div>
 </li>
 <li>
-<p><a href="publications/USENIX24-Grab.pdf">Tickets or Privacy? Understand the Ecosystem of Chinese Ticket Grabbing Apps</a>, <strong>[USENIX Security'24]</strong><br>
-Yijing Liu, Yiming Zhang, Baojun Liu, Haixin Duan, Qiang Li, <strong><code>Mingxuan Liu</code></strong>, Ruixuan Li, Jia Yao<br>
-(Acceptance rate: 18.3%))<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/USENIX24-Grab.pdf">Tickets or Privacy? Understand the Ecosystem of Chinese Ticket Grabbing Apps</a></span><span class="pub-venue">USENIX Security'24</span></div>
+<div class="pub-full">USENIX Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">Yijing Liu, Yiming Zhang, Baojun Liu, Haixin Duan, Qiang Li, <strong><code>Mingxuan Liu</code></strong>, Ruixuan Li, Jia Yao</div>
+<div class="pub-meta">Acceptance rate: 18.3%</div>
 </li>
 <li>
-<p><a href="publications/DSN24-ChatScam.pdf">ChatScam: Unveiling the Rising Impact of ChatGPT on Domain Name Abuse</a>, <strong>[DSN'24]</strong><br>
-<strong><code>Mingxuan Liu</code></strong>, Zhenglong Jin, Jiahai Yang, Baojun Liu, Haixin Duan, Ying Liu, Ximeng Liu, Shujun Tang<br>
-(Acceptance rate: 20.0%)<br>
-<strong>Open-Source</strong>: Sampled ChatScam domains are publicly available on <a href="https://github.com/MingxuanLiu/ChatScam">Github</a>.<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/DSN24-ChatScam.pdf">ChatScam: Unveiling the Rising Impact of ChatGPT on Domain Name Abuse</a></span><span class="pub-venue">DSN'24</span></div>
+<div class="pub-full">IEEE/IFIP International Conference on Dependable Systems and Networks</div>
+<div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Zhenglong Jin, Jiahai Yang, Baojun Liu, Haixin Duan, Ying Liu, Ximeng Liu, Shujun Tang</div>
+<div class="pub-meta">Acceptance rate: 20.0% &nbsp;·&nbsp; <strong>Open-Source</strong>: Sampled ChatScam domains are available on <a href="https://github.com/MingxuanLiu/ChatScam">Github</a>.</div>
 </li>
 <li>
-<p><a href="publications/NDSS24_Protective_preversion.pdf">Understanding the Implementation and Security Implications of Protective DNS Services</a>, <strong>[NDSS'24]</strong><br>
-<strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Xiang Li, Chaoyi Lu, Baojun Liu, Haixin Duan, Xiaofeng Zheng<br>
-(Acceptance rate: 13.0%)<br>
-<strong>Open-Source</strong>: The methods for identifying Protective DNS and some anonymized measurement results are publicly available on <a href="https://github.com/MingxuanLiu/ProtectiveDNS">Github</a>.<br>
-<strong>APNIC post</strong>: <a href="https://blog.apnic.net/2024/08/13/exploring-the-implementation-and-security-implications-of-protective-dns/">Exploring the implementation and security implications of Protective DNS</a>.<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/NDSS24_Protective_preversion.pdf">Understanding the Implementation and Security Implications of Protective DNS Services</a></span><span class="pub-venue">NDSS'24</span></div>
+<div class="pub-full">Network and Distributed System Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Xiang Li, Chaoyi Lu, Baojun Liu, Haixin Duan, Xiaofeng Zheng</div>
+<div class="pub-meta">Acceptance rate: 13.0% &nbsp;·&nbsp; <strong>Open-Source</strong>: <a href="https://github.com/MingxuanLiu/ProtectiveDNS">Github</a> &nbsp;·&nbsp; <strong>APNIC post</strong>: <a href="https://blog.apnic.net/2024/08/13/exploring-the-implementation-and-security-implications-of-protective-dns/">Exploring the implementation and security implications of Protective DNS</a></div>
 </li>
 </ul>
 </details>
@@ -339,11 +459,10 @@ Yijing Liu, Yiming Zhang, Baojun Liu, Haixin Duan, Qiang Li, <strong><code>Mingx
 <summary>2023 <span class="year-count">1 paper</span></summary>
 <ul>
 <li>
-<p><a href="publications/CCS23-Mining-Pool.pdf">Under the Dark: A Systematical Study of Stealthy Mining Pools (Ab)use in the Wild</a>, <strong>[CCS'23]</strong><br>
-*Zhenrui Zhang, *Geng Hong, Xiang Li, Zhuoqun Fu, Jia Zhang, <strong><code>Mingxuan Liu</code></strong>, Chuhan Wang, Jianjun Chen, Baojun Liu, Haixin Duan, Chao Zhang, Min Yang<br>
-(* are co-first authors.)<br>
-(Acceptance rate: 19.15%)
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/CCS23-Mining-Pool.pdf">Under the Dark: A Systematical Study of Stealthy Mining Pools (Ab)use in the Wild</a></span><span class="pub-venue">CCS'23</span></div>
+<div class="pub-full">ACM Conference on Computer and Communications Security <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">*Zhenrui Zhang, *Geng Hong, Xiang Li, Zhuoqun Fu, Jia Zhang, <strong><code>Mingxuan Liu</code></strong>, Chuhan Wang, Jianjun Chen, Baojun Liu, Haixin Duan, Chao Zhang, Min Yang</div>
+<div class="pub-meta">Acceptance rate: 19.15%</div>
 </li>
 </ul>
 </details>
@@ -351,33 +470,32 @@ Yijing Liu, Yiming Zhang, Baojun Liu, Haixin Duan, Qiang Li, <strong><code>Mingx
 <summary>2022 <span class="year-count">5 papers</span></summary>
 <ul>
 <li>
-<p><a href="publications/ESORICS22-Emoji.pdf">Exploring the Characteristics and Security Risks of Emerging Emoji Domain Names</a>, <strong>[ESORICS'22]</strong><br>
-<strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Haixin Duan<br>
-(Acceptance rate: 18.5%)
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/ESORICS22-Emoji.pdf">Exploring the Characteristics and Security Risks of Emerging Emoji Domain Names</a></span><span class="pub-venue">ESORICS'22</span></div>
+<div class="pub-full">European Symposium on Research in Computer Security</div>
+<div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Haixin Duan</div>
+<div class="pub-meta">Acceptance rate: 18.5%</div>
 </li>
 <li>
-<p><a href="publications/RAID22-Encryption.pdf">Encrypted Malware Traffic Detection via Graph-based Network Analysis</a>, <strong>[RAID'22]</strong><br>
-Zhuoqun Fu, <strong><code>Mingxuan Liu</code></strong>, Yue Qin, Jia Zhang, Yuan Zou, Qilei Yin, Qi Li, Haixin Duan<br>
-(Acceptance rate: 25%)
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/RAID22-Encryption.pdf">Encrypted Malware Traffic Detection via Graph-based Network Analysis</a></span><span class="pub-venue">RAID'22</span></div>
+<div class="pub-full">International Symposium on Research in Attacks, Intrusions and Defenses</div>
+<div class="pub-authors">Zhuoqun Fu, <strong><code>Mingxuan Liu</code></strong>, Yue Qin, Jia Zhang, Yuan Zou, Qilei Yin, Qi Li, Haixin Duan</div>
+<div class="pub-meta">Acceptance rate: 25%</div>
 </li>
 <li>
-<p><a href="publications/EthiCS22-ethics.pdf">Ethics in Security Research: Visions, Reality, and Paths Forward</a>, <strong>[EthiCS'22]</strong><br>
-Yiming Zhang, <strong><code>Mingxuan Liu</code></strong>, Mingming Zhang, Chaoyi Lu, Haixin Duan<br>
-<strong>🏆 Best Student Paper! </strong><br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/EthiCS22-ethics.pdf">Ethics in Security Research: Visions, Reality, and Paths Forward</a></span><span class="pub-venue">EthiCS'22<span class="pub-award">🏆 Best Student Paper</span></span></div>
+<div class="pub-full">Workshop on Ethics in Computer Security, IEEE EuroS&P</div>
+<div class="pub-authors">Yiming Zhang, <strong><code>Mingxuan Liu</code></strong>, Mingming Zhang, Chaoyi Lu, Haixin Duan</div>
 </li>
 <li>
-<p><a href="publications/NAACL22_ValCat.pdf">ValCAT: Generating Variable-Length Contextualized Adversarial Transformations using Encoder-Decode</a>, <strong>[NAACL'22]</strong><br>
-Chuyun Deng, <strong><code>Mingxuan Liu</code></strong>, Yue Qin, Jia Zhang, Haixin Duan, Donghong Sun<br>
-(Acceptance rate: 26%)
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/NAACL22_ValCat.pdf">ValCAT: Generating Variable-Length Contextualized Adversarial Transformations using Encoder-Decode</a></span><span class="pub-venue">NAACL'22</span></div>
+<div class="pub-full">Annual Conference of the North American Chapter of the Association for Computational Linguistics</div>
+<div class="pub-authors">Chuyun Deng, <strong><code>Mingxuan Liu</code></strong>, Yue Qin, Jia Zhang, Haixin Duan, Donghong Sun</div>
+<div class="pub-meta">Acceptance rate: 26%</div>
 </li>
 <li>
-<p><a href="publications/TDSC-Argot.pdf">Automatic Generation of Adversarial Readable Chinese Texts</a>, <strong>[TDSC'22]</strong><br>
-<strong><code>Mingxuan Liu</code></strong>, Zihan Zhang, Chao Zhang, Yiming Zhang, Zhou Li, Qi Li, Haixin Duan and Donghong Sun<br>
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/TDSC-Argot.pdf">Automatic Generation of Adversarial Readable Chinese Texts</a></span><span class="pub-venue">TDSC'22</span></div>
+<div class="pub-full">IEEE Transactions on Dependable and Secure Computing</div>
+<div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Zihan Zhang, Chao Zhang, Yiming Zhang, Zhou Li, Qi Li, Haixin Duan and Donghong Sun</div>
 </li>
 </ul>
 </details>
@@ -385,10 +503,10 @@ Chuyun Deng, <strong><code>Mingxuan Liu</code></strong>, Yue Qin, Jia Zhang, Hai
 <summary>2021 <span class="year-count">1 paper</span></summary>
 <ul>
 <li>
-<p><a href="publications/ACSAC21-Spearphishing_sms.pdf">Detecting and Characterizing SMS Spearphising Attacks</a>, <strong>[ACSAC'21]</strong><br>
-<strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Zhou Li, Haixin Duan, Donghong Sun<br>
-(Acceptance rate: 24.5%)
-</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/ACSAC21-Spearphishing_sms.pdf">Detecting and Characterizing SMS Spearphising Attacks</a></span><span class="pub-venue">ACSAC'21</span></div>
+<div class="pub-full">Annual Computer Security Applications Conference</div>
+<div class="pub-authors"><strong><code>Mingxuan Liu</code></strong>, Yiming Zhang, Baojun Liu, Zhou Li, Haixin Duan, Donghong Sun</div>
+<div class="pub-meta">Acceptance rate: 24.5%</div>
 </li>
 </ul>
 </details>
@@ -396,16 +514,16 @@ Chuyun Deng, <strong><code>Mingxuan Liu</code></strong>, Yue Qin, Jia Zhang, Hai
 <summary>2020 <span class="year-count">2 papers</span></summary>
 <ul>
 <li>
-<p><a href="publications/IJCAI20-Argot.pdf">Argot: Generating Adversarial Readable Chinese Texts</a>, <strong>[IJCAI'20]</strong><br>
-*Zihan Zhang, <strong>*<code>Mingxuan Liu</code></strong>, Chao Zhang, Yiming Zhang, Zhou Li, Qi Li, Haixin Duan and Donghong Sun<br>
-(* are co-first authors.)<br>
-(Acceptance rate: 12.6%)</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/IJCAI20-Argot.pdf">Argot: Generating Adversarial Readable Chinese Texts</a></span><span class="pub-venue">IJCAI'20</span></div>
+<div class="pub-full">International Joint Conference on Artificial Intelligence <span class="ccf">(CCF-A)</span></div>
+<div class="pub-authors">*Zihan Zhang, <strong><code>* Mingxuan Liu</code></strong>, Chao Zhang, Yiming Zhang, Zhou Li, Qi Li, Haixin Duan and Donghong Sun</div>
+<div class="pub-meta">Acceptance rate: 12.6%</div>
 </li>
 <li>
-<p><a href="publications/CCS20-FBS.pdf">Lies in the Air: Characterizing Fake-base-station Spam Ecosystem in China</a>, <strong>[ACM CCS'20]</strong><br>
-Yiming Zhang, Baojun Liu, Chaoyi Lu, Zhou Li, Haixin Duan, Shuang Hao, <strong><code>Mingxuan Liu</code></strong>, Ying Liu, Dong Wang and Qiang Li<br>
-<a href="https://github.com/Cypher-Z/FBS_SMS_Dataset">Released Dataset</a><br>
-(Acceptance rate: 16.9%)</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/CCS20-FBS.pdf">Lies in the Air: Characterizing Fake-base-station Spam Ecosystem in China</a></span><span class="pub-venue">CCS'20</span></div>
+<div class="pub-full">ACM Conference on Computer and Communications Security <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">Yiming Zhang, Baojun Liu, Chaoyi Lu, Zhou Li, Haixin Duan, Shuang Hao, <strong><code>Mingxuan Liu</code></strong>, Ying Liu, Dong Wang and Qiang Li</div>
+<div class="pub-meta">Acceptance rate: 16.9% &nbsp;·&nbsp; <a href="https://github.com/Cypher-Z/FBS_SMS_Dataset">Released Dataset</a></div>
 </li>
 </ul>
 </details>
@@ -413,14 +531,16 @@ Yiming Zhang, Baojun Liu, Chaoyi Lu, Zhou Li, Haixin Duan, Shuang Hao, <strong><
 <summary>2019 <span class="year-count">2 papers</span></summary>
 <ul>
 <li>
-<p><a href="publications/ACSAC19-Casino.pdf">Casino Royale: A Deep Exploration of Illegal Online Gambling</a>, <strong>[ACSAC'19]</strong><br>
-Hao Yang, Kun Du, Yubao Zhang, Shuang Hao, Zhou Li, <strong><code>Mingxuan Liu</code></strong>, Haining Wang, Haixin Duan, Yazhou Shi, Xiaodong Su, Guang Liu and Zhifeng Geng<br>
-(Acceptance rate: 22.6%)</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/ACSAC19-Casino.pdf">Casino Royale: A Deep Exploration of Illegal Online Gambling</a></span><span class="pub-venue">ACSAC'19</span></div>
+<div class="pub-full">Annual Computer Security Applications Conference</div>
+<div class="pub-authors">Hao Yang, Kun Du, Yubao Zhang, Shuang Hao, Zhou Li, <strong><code>Mingxuan Liu</code></strong>, Haining Wang, Haixin Duan, Yazhou Shi, Xiaodong Su, Guang Liu and Zhifeng Geng</div>
+<div class="pub-meta">Acceptance rate: 22.6%</div>
 </li>
 <li>
-<p><a href="publications/SecureComm19-TLDR.pdf">TL;DR Hazard: A Comprehensive Study of Levelsquatting Scams</a>, <strong>[SecureComm'19]</strong><br>
-Kun Du, Hao Yang, Zhou Li, Haixin Duan, Shuang Hao, Baojun Liu, Yuxiao Ye, <strong><code>Mingxuan Liu</code></strong>, Xiaodong Su, Guang Liu, Zhifeng Geng, Zaifeng Zhang and Jinjin Liang<br>
-(Acceptance rate: 37.6%)</p>
+<div class="pub-head"><span class="pub-title"><a href="publications/SecureComm19-TLDR.pdf">TL;DR Hazard: A Comprehensive Study of Levelsquatting Scams</a></span><span class="pub-venue">SecureComm'19</span></div>
+<div class="pub-full">EAI International Conference on Security and Privacy in Communication Networks</div>
+<div class="pub-authors">Kun Du, Hao Yang, Zhou Li, Haixin Duan, Shuang Hao, Baojun Liu, Yuxiao Ye, <strong><code>Mingxuan Liu</code></strong>, Xiaodong Su, Guang Liu, Zhifeng Geng, Zaifeng Zhang and Jinjin Liang</div>
+<div class="pub-meta">Acceptance rate: 37.6%</div>
 </li>
 </ul>
 </details>
