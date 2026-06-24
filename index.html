@@ -224,9 +224,10 @@
             white-space: nowrap;
         }
         #content #pub-list .pub-award {
-            display: block;
+            float: right;
+            margin-left: 1rem;
             color: #b06f00;
-            font-size: .82em;
+            font-style: normal;
             font-weight: 700;
             white-space: nowrap;
         }
@@ -386,8 +387,8 @@
 <div class="pub-meta">Acceptance rate: x%</div>
 </li>
 <li>
-<div class="pub-head"><span class="pub-title"><a href="publications/NDSS26-Email.pdf">One Email, Many Faces: A Deep Dive into Identity Confusion in Email Aliases</a></span><span class="pub-venue">NDSS'26<span class="pub-award">🏆 Distinguished Paper</span></span></div>
-<div class="pub-full">Network and Distributed System Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-head"><span class="pub-title"><a href="publications/NDSS26-Email.pdf">One Email, Many Faces: A Deep Dive into Identity Confusion in Email Aliases</a></span><span class="pub-venue">NDSS'26</span></div>
+<div class="pub-full"><span class="pub-award">🏆 Distinguished Paper</span>Network and Distributed System Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
 <div class="pub-authors">Mengying Wu, Geng Hong, Jiatao Chen, Baojun Liu, <strong><code>Mingxuan Liu</code></strong>, Min Yang</div>
 <div class="pub-meta">Acceptance rate: x%</div>
 </li>
@@ -482,8 +483,8 @@
 <div class="pub-meta">Acceptance rate: 25%</div>
 </li>
 <li>
-<div class="pub-head"><span class="pub-title"><a href="publications/EthiCS22-ethics.pdf">Ethics in Security Research: Visions, Reality, and Paths Forward</a></span><span class="pub-venue">EthiCS'22<span class="pub-award">🏆 Best Student Paper</span></span></div>
-<div class="pub-full">Workshop on Ethics in Computer Security, IEEE EuroS&P</div>
+<div class="pub-head"><span class="pub-title"><a href="publications/EthiCS22-ethics.pdf">Ethics in Security Research: Visions, Reality, and Paths Forward</a></span><span class="pub-venue">EthiCS'22</span></div>
+<div class="pub-full"><span class="pub-award">🏆 Best Student Paper</span>Workshop on Ethics in Computer Security, IEEE EuroS&P</div>
 <div class="pub-authors">Yiming Zhang, <strong><code>Mingxuan Liu</code></strong>, Mingming Zhang, Chaoyi Lu, Haixin Duan</div>
 </li>
 <li>
@@ -599,5 +600,16 @@
             <small style="color:#999;">Last modified: June 24, 2026</small>
         </div>
     
-</div></body>
+</div>
+<script>
+  // Open all external / non-anchor links in a new tab
+  document.querySelectorAll('a[href]').forEach(function (a) {
+    var h = a.getAttribute('href');
+    if (h && h.charAt(0) !== '#') {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
+</script>
+</body>
 </html>
