@@ -187,13 +187,10 @@
             list-style: none;
             padding-left: .2rem;
         }
-        /* Continuous descending numbering across all year groups.
-           counter starts at (total papers + 1); each item does -1,
-           so the top (newest) paper shows the total count. */
+        /* Publication numbers are assigned cumulatively from oldest to newest by JavaScript. */
         /* ---- Jianjun-style entry: [n] title .... venue (right) / full name / authors / meta ---- */
-        #content #pub-list { counter-reset: pubnum 26; font-size: .9em; }
+        #content #pub-list { font-size: .9em; }
         #content #pub-list li {
-            counter-increment: pubnum -1;
             list-style: none;
             margin-left: 0;
             margin-bottom: .9em;
@@ -207,7 +204,7 @@
         }
         #content #pub-list .pub-title { flex: 1 1 auto; min-width: 0; font-weight: 700; }
         #content #pub-list .pub-title::before {
-            content: "[" counter(pubnum) "] ";
+            content: "[" attr(data-pubnum) "] ";
             color: #224b8d;
             font-weight: 700;
         }
@@ -349,6 +346,7 @@
 <h2 id="news">Recent News</h2>
 <div class="news-box">
 <ul>
+<li><span class="news-date">Oct. 2026</span>Our paper about the security of Web agent execution frameworks was accepted to <strong><a href="https://www.ndss-symposium.org/ndss2027/">NDSS 2027</a></strong>! Congrats to <a href="https://janx0102.github.io/">Xinyi</a> (Fudan University)!</li>
 <li><span class="news-date">Sep. 2026</span>Invited to serve as a Program Committee (PC) member of <strong><a href="https://www2027.thewebconf.org/">The WEB Conference (WWW) 2027</a></strong>!</li>
 <li><span class="news-date">Aug. 2026</span>Our paper about the real-world usage and threat impact of MNO-based single sign-on websites was accepted to <strong><a href="https://www.sigsac.org/ccs/CCS2026/">ACM CCS 2026</a></strong>! Congrats to Jiasheng!</li>
 <li><span class="news-date">Aug. 2026</span>Our paper about email delivery retry strategies and defects was accepted to <strong><a href="https://conferences.sigcomm.org/imc/2026/">ACM IMC 2026</a></strong>! Congrats to <a href="https://ruixuanli.com/">Ruixuan</a>!</li>
@@ -370,8 +368,14 @@
 <p class="pub-legend"><span class="sym">*</span>&nbsp;Co-first authors with equal contribution. &nbsp;&nbsp; <span class="sym">#</span>&nbsp;Corresponding author.</p>
 <div id="pub-list">
 <details class="pub-year" open>
-<summary>2027 <span class="year-count">1 paper</span></summary>
+<summary>2027 <span class="year-count">2 papers</span></summary>
 <ul>
+<li>
+<div class="pub-head"><span class="pub-title"><a href="https://cycle1.sp2027.ieee-security.org/paper/1564">Harness Matters: Measuring and Dissecting Security Resilience in Web Agents</a></span><span class="pub-venue">S&amp;P'27</span></div>
+<div class="pub-full">IEEE Symposium on Security and Privacy <span class="ccf">(CCF-A, Big4)</span></div>
+<div class="pub-authors">Xinyi Wu, Jiagui Chen, Jiayi Dong, Geng Hong, Xudong Pan, Jiarun Dai, <strong><code>Mingxuan Liu</code></strong>, Min Yang</div>
+<div class="pub-meta">Coming soon!<br>Acceptance rate: x%</div>
+</li>
 <li>
 <div class="pub-head"><span class="pub-title"><a href="https://ndss27-summer.hotcrp.com/paper/617">Tracking the Shadows: A Longitudinal, End-to-End Analysis of the Criminal Ecosystem for Email Account Compromise</a></span><span class="pub-venue">NDSS'27</span></div>
 <div class="pub-full">Network and Distributed System Security Symposium <span class="ccf">(CCF-A, Big4)</span></div>
@@ -642,6 +646,12 @@
     
 </div>
 <script>
+  // Count upward from the oldest paper, while keeping newest papers at the top.
+  var publications = Array.from(document.querySelectorAll('#pub-list .pub-title'));
+  publications.reverse().forEach(function (title, index) {
+    title.setAttribute('data-pubnum', index + 1);
+  });
+
   // Open all external / non-anchor links in a new tab
   document.querySelectorAll('a[href]').forEach(function (a) {
     var h = a.getAttribute('href');
